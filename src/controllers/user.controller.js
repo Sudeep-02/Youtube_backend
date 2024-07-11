@@ -102,12 +102,12 @@ const loginUser = asyncHandler(async (req, res) => {
   // generate and access and refresh token
   //send through cookies
   const { email, username, password } = req.body;
-  console.log(email);
+
   if (!email && !username) {
     throw new ApiError(400, "Please enter Username or Email to login");
   }
 
-  const user = User.findOne({
+  const user = await User.findOne({
     // it fetch all data in db // here refresh token is empty
     $or: [{ username }, { email }],
   });
